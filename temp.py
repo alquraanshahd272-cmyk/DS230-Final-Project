@@ -63,3 +63,6 @@ for col in int_cols:
 
 prior_full.memory_usage(deep=True).sum() / 1024**2
 train_full.memory_usage(deep=True).sum() / 1024**2
+
+prior_full = prior_full[(prior_full["order_hour_of_day"] >= 0) & (prior_full["order_hour_of_day"] <= 23)]
+prior_full = prior_full[prior_full["days_since_prior_order"] >= 0]
