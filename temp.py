@@ -63,3 +63,33 @@ for col in int_cols:
 
 prior_full.memory_usage(deep=True).sum() / 1024**2
 train_full.memory_usage(deep=True).sum() / 1024**2
+
+missing_percent = prior_full.isna().mean() * 70
+missing_percent = missing_percent[missing_percent > 0]  
+if not missing_percent.empty:
+    plt.figure(figsize=(10,4))
+    plt.bar(missing_percent.index, missing_percent.values, color='red', alpha=0.7)
+    plt.ylabel("%")
+    plt.title("Column")
+    plt.xticks(rotation=45)
+    plt.show()
+
+numeric_cols = ["days_since_prior_order", "add_to_cart_order", "order_number"]
+for col in numeric_cols:
+    plt.figure(figsize=(6,4))
+    plt.hist(prior_full[col], bins=15, density=True, alpha=0.5, color='black')
+    plt.title(f"Distribution of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Density")
+    plt.show()
+
+
+categorical_cols = ["order_dow", "order_hour_of_day"]
+for col in categorical_cols:
+    counts = prior_full[col].value_counts().sort_index()
+    plt.figure(figsize=(4,4))
+    plt.bar(counts.index, counts.values, color='red', alpha=0.6)
+    plt.title(f"Counts of {col}")
+    plt.xlabel(col)
+    plt.ylabel("Count")
+    plt.show()
