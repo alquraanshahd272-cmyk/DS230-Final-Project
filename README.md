@@ -1,6 +1,9 @@
 from google.colab import drive
 drive.mount('/content/drive')
+
+
 folder_path = '/content/drive/MyDrive/DS230_Project'
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,6 +14,8 @@ train = pd.read_csv(os.path.join(folder_path, "order_products__train.csv"))
 products = pd.read_csv(os.path.join(folder_path, "products.csv"))
 aisles = pd.read_csv(os.path.join(folder_path, "aisles.csv"))
 departments = pd.read_csv(os.path.join(folder_path, "departments.csv"))
+
+
 #aisles و departments
 products_full = products.merge(aisles, on="aisle_id", how="left").merge(departments, on="department_id", how="left")
 print("products_full:", products_full.shape)
@@ -26,6 +31,8 @@ prior_full = prior_full.merge(orders, on="order_id", how="left")
 train_full = train_full.merge(orders, on="order_id", how="left")
 print("prior_full (after orders):", prior_full.shape)
 print("train_full (after orders):", train_full.shape)
+
+
 
 user_orders = prior_full.groupby("user_id")["order_id"].nunique()
 user_orders.describe()
