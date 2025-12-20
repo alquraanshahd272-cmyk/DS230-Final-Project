@@ -1,4 +1,7 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import os
 
 aisles = pd.read_csv("aisles (1).csv")
 departments = pd.read_csv("departments (1).csv")
@@ -92,3 +95,4 @@ plt.title("Orders by Day of Week")
 plt.xlabel("Day of Week")
 plt.ylabel("Count")
 plt.show()
+
